@@ -1,0 +1,17 @@
+{
+  "name": "synapse",
+  "version": "1.0.0",
+  "description": "A web-based collaborative text editor that allows multiple users to edit a document simultaneously in real-time",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Anurag",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "nodemon": "^3.1.0"
+  }
+}
