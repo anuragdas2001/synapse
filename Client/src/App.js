@@ -1,44 +1,59 @@
-import { useRef } from "react";
-// import { Server } from "socket.io";
-import { useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import { io } from "socket.io-client";
 import Editor from "@monaco-editor/react";
+
+// Initialize the connection
 const socket = io("http://localhost:5000");
+
 function App() {
-  const editorRef = useRef(null);
-   const [messages, setMessages] = useState([]);
+  const [text, setText] = useState("");
 
   useEffect(() => {
-    // Connect to Socket.IO server
-    socket.on("connect", () => {
-      console.log("Connected to Socket.IO server");
+    // Event listener for receiving messages from the server
+    socket.on("hello", (data) => {
+      console.log("Message from server:", data);
     });
-
+    socket.on("reflect", (textvalue) => {
+      setText(textvalue)
+      console.log(textvalue);
+    });
+    // Clean up event listener when component unmounts
     return () => {
-      // Disconnect from Socket.IO server
-      socket.disconnect();
+      socket.off("hello");
     };
   }, []);
-  function handleEditorDidMount(editor, monaco) {
-    editorRef.current = editor;
-    // console.log(editor)
-    // console.log(editorRef.current)
+
+  // Function to handle changes in the editor
+  function handleEditorChange(value, event) {
+    // Update the text state when editor value changes
+    console.log("Inside handleEditorChange");
+    console.log(value);
+    setText(value);
+
+    // Emit the updated text to the server
+    socket.emit("editor-change", value);
   }
 
-  function showValue() {
-    alert(editorRef.current.getValue());
-    // socket.emit('chatMessage', 'Hello, server!');
+  // Function to handle editor mount
+  function handleEditorDidMount(editor, monaco) {
+    // You can use 'editor' and 'monaco' here
   }
+
+  // Function to show the current editor value
+  function showValue() {
+    alert(text);
+  }
+
   return (
     <>
-      <button onClick={() => showValue()}>Show value</button>
+      <button onClick={showValue}>Show value</button>
       <Editor
         height="30vh"
         defaultLanguage="javascript"
-        defaultValue="// some comment"
-        onChange={handleEditorDidMount}
+        value={text} // Pass the current value to the editor
+        onChange={handleEditorChange} // Handle value changes
+        editorDidMount={handleEditorDidMount} // Handle editor mount
       />
-      ;
     </>
   );
 }
