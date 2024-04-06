@@ -28,6 +28,7 @@ function socketConfig(server, options) {
 
       // Set user status to offline when a user disconnects
       userStatus[socket.id] = "offline";
+      delete userStatus[socket.id];
       io.emit("user-status", userStatus);
     });
   });
