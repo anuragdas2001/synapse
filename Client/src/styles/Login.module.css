@@ -1,0 +1,43 @@
+.LoginHead{
+    
+    margin:50px 0px 0px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.LoginForm{
+    margin:200px 0px 0px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.InputBtn{
+    height:50px;
+    width:300px;
+    border-radius: 5px;
+    text-align: center;
+}
+.SubmitBtn{
+    height:50px;
+    width:200px;
+    /* border: 1px solid black; */
+    background-color: rgb(9, 218, 148);
+    border-radius: 5px;
+    margin:50px 0px 0px 50px;
+}
+.SubmitBtn:hover{
+    background-color: rgb(9, 218, 148);
+}
+.SignUpSuggestionBtn{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin:150px 0px 0px 0px;
+    padding: 5px;
+    background-color: aqua;
+    text-decoration: none;
+    color:black;
+    border-radius: 3px;
+    
+}
